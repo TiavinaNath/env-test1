@@ -32,6 +32,12 @@ jobs:
               (github.ref == 'refs/heads/prod') && secrets.PROD_DATABASE_URL ||
               (github.ref == 'refs/heads/preprod') && secrets.PREPROD_DATABASE_URL
               }}
+      AWS_SECRET: ${{
+              (github.event_name == 'pull_request' && github.base_ref == 'prod') && secrets.PROD_AWS_SECRET ||
+              (github.event_name == 'pull_request' && github.base_ref == 'preprod') && secrets.PREPROD_AWS_SECRET ||
+              (github.ref == 'refs/heads/prod') && secrets.PROD_AWS_SECRET ||
+              (github.ref == 'refs/heads/preprod') && secrets.PREPROD_AWS_SECRET
+              }}
 
 
     steps:
